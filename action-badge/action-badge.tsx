@@ -1,9 +1,14 @@
 import type { StaticImageData } from "next/image";
-import type { CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 import styles from "./action-badge.module.css";
 import { BadgeMotion } from "./badge-motion";
 
-export type ActionBadgeLine = { text: string; color: string };
+export type ActionBadgeRun = { text: string; struck?: true };
+
+export type ActionBadgeLine = {
+  text: string | readonly [ActionBadgeRun, ...ActionBadgeRun[]];
+  color: string;
+};
 
 export type ActionBadgeProps = {
   lines: readonly [ActionBadgeLine, ...ActionBadgeLine[]];
@@ -11,6 +16,19 @@ export type ActionBadgeProps = {
   background: string;
   sectionId: string;
 };
+
+const LineText = ({ text }: { text: ActionBadgeLine["text"] }) =>
+  typeof text === "string"
+    ? text
+    : text.map((run, index) =>
+        run.struck ? (
+          <s key={index} className={styles.struck}>
+            {run.text}
+          </s>
+        ) : (
+          <Fragment key={index}>{run.text}</Fragment>
+        ),
+      );
 
 type BadgeVariables = CSSProperties & Record<`--${string}`, string>;
 
@@ -33,7 +51,7 @@ export const ActionBadge = ({ lines, icon, background, sectionId }: ActionBadgeP
             <p className={styles.text}>
               {lines.map((line, index) => (
                 <span key={index} className={styles.line} style={{ color: line.color }}>
-                  {line.text}
+                  <LineText text={line.text} />
                 </span>
               ))}
             </p>

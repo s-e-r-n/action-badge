@@ -161,6 +161,10 @@
   white-space: nowrap;
 }
 
+.struck {
+  text-decoration-thickness: 0.11em;
+}
+
 @keyframes action-badge-arrive {
   from {
     opacity: 0;

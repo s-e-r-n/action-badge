@@ -37,3 +37,4 @@ Sort:
 | Line text and its runs | the host page | ActionBadge | the host page |
 
 ## Amendments
+- The README carried literal no-break spaces where `\u00a0` escapes were meant, invisible in its tip; they are written back as escapes.
