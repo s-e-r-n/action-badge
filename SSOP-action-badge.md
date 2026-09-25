@@ -59,3 +59,4 @@ Sort:
 - The link is the face, an `a`; its outline is cut by the starburst `clip-path`, so keyboard focus draws an ink halo through the `drop-shadow` of the tilt, and the aim shadow moves into `--action-badge-shadow` so both filters share it.
 - Every line takes one style, the one of the source's last line: `11cqi`, italic, 700, never wrapped.
 - The type check needs `next`, `react`, `@types/react` and `typescript` only; `react-dom` comes in as a peer of `next`.
+- The foil tones default to the background color and the relative colors override them inside `@supports`: a plain fallback declared before a `var()` value is lost, the later declaration wins the cascade and becomes invalid at computed value time.

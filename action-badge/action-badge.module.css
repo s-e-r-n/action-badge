@@ -4,13 +4,9 @@
   --action-badge-aim-x: -0.35;
   --action-badge-aim-y: -0.45;
   --action-badge-ink: #182038;
-  --action-badge-foil-pale: oklch(
-    from var(--action-badge-background) calc(l + 0.118) calc(c * 0.34) h
-  );
+  --action-badge-foil-pale: var(--action-badge-background);
   --action-badge-foil-mid: var(--action-badge-background);
-  --action-badge-foil-deep: oklch(
-    from var(--action-badge-background) calc(l - 0.106) calc(c * 1.57) h
-  );
+  --action-badge-foil-deep: var(--action-badge-background);
   --action-badge-light-x: calc(50% + var(--action-badge-aim-x) * 36%);
   --action-badge-light-y: calc(50% + var(--action-badge-aim-y) * 36%);
 
@@ -24,6 +20,17 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   animation: action-badge-arrive 720ms cubic-bezier(0.2, 1.35, 0.4, 1) 250ms both;
+}
+
+@supports (color: oklch(from red calc(l + 0.118) calc(c * 0.34) h)) {
+  .badge {
+    --action-badge-foil-pale: oklch(
+      from var(--action-badge-background) calc(l + 0.118) calc(c * 0.34) h
+    );
+    --action-badge-foil-deep: oklch(
+      from var(--action-badge-background) calc(l - 0.106) calc(c * 1.57) h
+    );
+  }
 }
 
 .tilt {

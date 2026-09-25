@@ -75,7 +75,7 @@ export default Page;
 - To scroll smoothly to the section instead of jumping, set `scroll-behavior: smooth` on `html` in your global styles.
 - Next.js imports an SVG as a static image by default, which is what `icon` expects. If your project turns SVG imports into React components (SVGR), import the motif from a PNG, or exclude the folder's SVG from that rule.
 - The badge takes its font from the page.
-- The foil tones use CSS relative color syntax, which needs Chrome 119, Firefox 128 or Safari 18 and later.
+- The paler and deeper foil tones use CSS relative color syntax. A browser without it, such as an older iPhone, shows a flat foil in the `background` color, with the light, sheen and motif still on top.
 
 ## Versions
 
