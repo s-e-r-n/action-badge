@@ -167,10 +167,3 @@
     transform: scale(0.45) rotate(-35deg);
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .badge {
-    --action-badge-tilt-max: 0deg;
-    animation: none;
-  }
-}

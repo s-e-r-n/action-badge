@@ -4,8 +4,6 @@ const swayPeriodXMs = 7000;
 const swayPeriodYMs = 10500;
 
 export const breathe = ({ pose }: { pose: Pose }) => {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
-
   let frame = 0;
 
   const sway = (time: number) => {
