@@ -1,0 +1,169 @@
+.badge {
+  --action-badge-size: clamp(150px, 24cqi, 228px);
+  --action-badge-tilt-max: 18deg;
+  --action-badge-aim-x: -0.35;
+  --action-badge-aim-y: -0.45;
+  --action-badge-ink: #182038;
+  --action-badge-foil-pale: oklch(
+    from var(--action-badge-background) calc(l + 0.118) calc(c * 0.34) h
+  );
+  --action-badge-foil-mid: var(--action-badge-background);
+  --action-badge-foil-deep: oklch(
+    from var(--action-badge-background) calc(l - 0.106) calc(c * 1.57) h
+  );
+  --action-badge-light-x: calc(50% + var(--action-badge-aim-x) * 36%);
+  --action-badge-light-y: calc(50% + var(--action-badge-aim-y) * 36%);
+
+  position: fixed;
+  right: calc(var(--action-badge-size) * -0.1);
+  bottom: calc(var(--action-badge-size) * -0.12);
+  z-index: 40;
+  width: var(--action-badge-size);
+  aspect-ratio: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: action-badge-arrive 720ms cubic-bezier(0.2, 1.35, 0.4, 1) 250ms both;
+}
+
+.tilt {
+  --action-badge-shadow: drop-shadow(
+    calc(var(--action-badge-aim-x) * -7px) calc(9px + var(--action-badge-aim-y) * -6px) 12px
+      rgb(24 32 56 / 0.24)
+  );
+
+  width: 100%;
+  height: 100%;
+  transform: perspective(620px)
+    rotateX(calc(var(--action-badge-aim-y) * var(--action-badge-tilt-max) * -1))
+    rotateY(calc(var(--action-badge-aim-x) * var(--action-badge-tilt-max)));
+  filter: var(--action-badge-shadow);
+  will-change: transform;
+}
+
+.tilt:has(.face:focus-visible) {
+  filter: drop-shadow(0 0 1px var(--action-badge-ink)) drop-shadow(0 0 1px var(--action-badge-ink))
+    var(--action-badge-shadow);
+}
+
+.face {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+  clip-path: polygon(
+    50% 0%, 58% 9.8%, 69.1% 3.8%, 72.8% 15.9%, 85.4% 14.6%, 84.1% 27.2%,
+    96.2% 30.9%, 90.2% 42%, 100% 50%, 90.2% 58%, 96.2% 69.1%, 84.1% 72.8%,
+    85.4% 85.4%, 72.8% 84.1%, 69.1% 96.2%, 58% 90.2%, 50% 100%, 42% 90.2%,
+    30.9% 96.2%, 27.2% 84.1%, 14.6% 85.4%, 15.9% 72.8%, 3.8% 69.1%, 9.8% 58%,
+    0% 50%, 9.8% 42%, 3.8% 30.9%, 15.9% 27.2%, 14.6% 14.6%, 27.2% 15.9%,
+    30.9% 3.8%, 42% 9.8%
+  );
+  background: radial-gradient(
+    circle at var(--action-badge-light-x) var(--action-badge-light-y),
+    var(--action-badge-foil-pale),
+    var(--action-badge-foil-mid) 48%,
+    var(--action-badge-foil-deep) 100%
+  );
+}
+
+.foil {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(
+    circle at var(--action-badge-light-x) var(--action-badge-light-y),
+    #000,
+    rgb(0 0 0 / 0.5) 45%,
+    rgb(0 0 0 / 0.28) 100%
+  );
+  mask-image: radial-gradient(
+    circle at var(--action-badge-light-x) var(--action-badge-light-y),
+    #000,
+    rgb(0 0 0 / 0.5) 45%,
+    rgb(0 0 0 / 0.28) 100%
+  );
+}
+
+.motif {
+  position: absolute;
+  inset: -30%;
+  background: var(--action-badge-motif) 0 0 / 10cqi 10cqi repeat;
+  opacity: 0.7;
+  transform: rotate(-12deg)
+    translate(
+      calc(var(--action-badge-aim-x) * -3cqi),
+      calc(var(--action-badge-aim-y) * -3cqi)
+    );
+}
+
+.sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      115deg,
+      transparent 32%,
+      rgb(255 184 226 / 0.55) 43%,
+      rgb(255 246 196 / 0.5) 50%,
+      rgb(168 240 228 / 0.55) 57%,
+      transparent 68%
+    )
+    calc(50% + var(--action-badge-aim-x) * 55%) calc(50% + var(--action-badge-aim-y) * 55%) /
+    260% 260% no-repeat;
+  mix-blend-mode: soft-light;
+}
+
+.light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--action-badge-light-x) var(--action-badge-light-y),
+    rgb(255 255 255 / 0.62),
+    rgb(255 255 255 / 0.16) 30%,
+    transparent 58%
+  );
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  transform: translate(-3%, -4%) rotate(-12deg);
+}
+
+.text {
+  display: grid;
+  justify-items: center;
+  gap: 1.4cqi;
+  margin: 0;
+  line-height: 1;
+}
+
+.line {
+  font-size: 11cqi;
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@keyframes action-badge-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.45) rotate(-35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    --action-badge-tilt-max: 0deg;
+    animation: none;
+  }
+}

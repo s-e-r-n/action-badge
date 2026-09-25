@@ -1,0 +1,15 @@
+{
+  "name": "action-badge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A floating starburst badge for Next.js, copied into a project as one folder",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "next": "16.3.6",
+    "react": "19.3.0",
+    "typescript": "7.0.2"
+  }
+}
