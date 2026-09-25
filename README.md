@@ -24,7 +24,12 @@ Only the folder is needed. The rest of this repository exists to type check it.
 The folder's `index.ts` exports the component and the types of its parameters:
 
 ```ts
-import { ActionBadge, type ActionBadgeProps, type ActionBadgeLine } from "@/action-badge";
+import {
+  ActionBadge,
+  type ActionBadgeLine,
+  type ActionBadgeProps,
+  type ActionBadgeRun,
+} from "@/action-badge";
 ```
 
 `@/action-badge` assumes the default `@/*` path alias of `create-next-app`. Without it, import the folder by relative path.
@@ -36,7 +41,9 @@ import { ActionBadge, type ActionBadgeProps, type ActionBadgeLine } from "@/acti
 | Parameter | Type | What it sets |
 | --- | --- | --- |
 | `lines` | `[ActionBadgeLine, ...ActionBadgeLine[]]` | The copy, one entry per line, at least one. Each line renders in its own `span`, on one line, in its own color. |
-| `lines[n].text` | `string` | The words of the line. Keep lines short: the badge does not wrap or shrink them, and the starburst cuts off what overflows. Use ` ` for a space that must not break, such as `"40 CHF"`. |
+| `lines[n].text` | `string` or `[ActionBadgeRun, ...ActionBadgeRun[]]` | The words of the line: a plain string, or a list of at least one run when part of the line looks different. Keep lines short: the badge does not wrap or shrink them, and the starburst cuts off what overflows. Use `\u00a0` for a space that must not break, such as `"40\u00a0CHF"`. |
+| `lines[n].text[n].text` | `string` | The words of one run. Runs sit side by side, so put the space between two runs inside one of them, such as `"Value "`. |
+| `lines[n].text[n].struck` | `true`, optional | Strikes the run through, such as a former price. Leave it out for a plain run. |
 | `lines[n].color` | `string` | Any CSS color for that line, such as `"#182038"`. |
 | `icon` | `StaticImageData` | The motif repeated across the foil, as an image import. Light strokes on a transparent background read best. The folder ships its own motif, `palette.svg`. |
 | `background` | `string` | Any CSS color. It is the middle tone of the foil: the badge derives a paler tone toward the light and a deeper, more saturated tone at the edges. |
@@ -53,9 +60,12 @@ const Page = () => (
     <section id="offer">...</section>
     <ActionBadge
       lines={[
-        { text: "Value 60 CHF", color: "#182038" },
-        { text: "40 CHF", color: "#182038" },
-        { text: "-33 %", color: "#b4235a" },
+        {
+          text: [{ text: "Value " }, { text: "60\u00a0CHF", struck: true }],
+          color: "#182038",
+        },
+        { text: "40\u00a0CHF", color: "#182038" },
+        { text: "-33\u00a0%", color: "#b4235a" },
       ]}
       icon={palette}
       background="#b3c7f5"
