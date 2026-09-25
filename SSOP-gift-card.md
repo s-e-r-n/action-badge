@@ -59,3 +59,5 @@ Sort:
 | Scene on screen | the browser, reported to breathe | breathe | none |
 
 ## Amendments
+- The source's classes `love` and `heart` become `tail` and `emoji`, named for their role rather than for one card's copy.
+- Next.js imports the published mark as 800 by 63, its `viewBox` height of 62.55 rounded: the ratio follows the import.

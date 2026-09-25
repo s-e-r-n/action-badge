@@ -1,0 +1,265 @@
+.scene {
+  --gift-card-aim-x: -0.35;
+  --gift-card-aim-y: -0.45;
+  --gift-card-tilt-max: 14deg;
+  --gift-card-rest-x: 16deg;
+  --gift-card-rest-y: -10deg;
+  --gift-card-light-x: calc(50% + var(--gift-card-aim-x) * 36%);
+  --gift-card-light-y: calc(50% + var(--gift-card-aim-y) * 36%);
+  --gift-card-radius: 3.5cqi;
+  --gift-card-thickness: 1.7cqi;
+  --gift-card-surface: #b3c7f5;
+  --gift-card-surface-pale: #e7eefe;
+  --gift-card-surface-deep: #87a4ea;
+  --gift-card-core-lit: #f8faff;
+  --gift-card-core-shade: #c2cbdc;
+  --gift-card-metal: linear-gradient(
+    100deg,
+    #2f3542 0%,
+    #4f5868 14%,
+    #9aa3b3 24%,
+    #3f4757 36%,
+    #646d7f 52%,
+    #aab2c0 60%,
+    #373e4c 72%,
+    #58606f 88%,
+    #2f3542 100%
+  );
+  --gift-card-metal-line: #4f5868;
+  --gift-card-gold: linear-gradient(
+    100deg,
+    #6f5117 0%,
+    #a07a2c 16%,
+    #e3c47a 26%,
+    #8c6824 40%,
+    #c29a48 56%,
+    #f0d78f 62%,
+    #7d5c1e 76%,
+    #b08a3a 90%,
+    #6f5117 100%
+  );
+
+  width: 100%;
+  container-type: inline-size;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-weight: 500;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 100 / 72;
+  perspective: 230cqi;
+}
+
+.tilt {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(
+      calc(var(--gift-card-rest-x) + var(--gift-card-aim-y) * var(--gift-card-tilt-max) * -1)
+    )
+    rotateY(calc(var(--gift-card-rest-y) + var(--gift-card-aim-x) * var(--gift-card-tilt-max)));
+  will-change: transform;
+}
+
+.card {
+  position: absolute;
+  left: 3cqi;
+  top: 5cqi;
+  width: 94cqi;
+  aspect-ratio: 85.6 / 54;
+  transform-style: preserve-3d;
+  transform: rotate(-5deg);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 5% 4%;
+  border-radius: var(--gift-card-radius);
+  background: rgb(24 32 56 / 0.36);
+  filter: blur(2.4cqi);
+  transform: translate3d(
+    calc(var(--gift-card-aim-x) * -3cqi),
+    calc(2.6cqi + var(--gift-card-aim-y) * -2.4cqi),
+    -7cqi
+  );
+}
+
+.edge {
+  --gift-card-edge-lit: var(--gift-card-core-lit);
+  --gift-card-edge-shade: var(--gift-card-core-shade);
+
+  position: absolute;
+  inset: 0;
+  border-radius: var(--gift-card-radius);
+  background: radial-gradient(
+    circle at var(--gift-card-light-x) var(--gift-card-light-y),
+    var(--gift-card-edge-lit),
+    var(--gift-card-edge-shade) 85%
+  );
+  transform: translateZ(calc(var(--gift-card-thickness) * var(--gift-card-depth) * -1));
+}
+
+.edge:nth-child(1) {
+  --gift-card-depth: 0.125;
+  --gift-card-edge-lit: var(--gift-card-surface-pale);
+  --gift-card-edge-shade: var(--gift-card-surface-deep);
+}
+
+.edge:nth-child(2) {
+  --gift-card-depth: 0.25;
+}
+
+.edge:nth-child(3) {
+  --gift-card-depth: 0.375;
+}
+
+.edge:nth-child(4) {
+  --gift-card-depth: 0.5;
+}
+
+.edge:nth-child(5) {
+  --gift-card-depth: 0.625;
+}
+
+.edge:nth-child(6) {
+  --gift-card-depth: 0.75;
+}
+
+.edge:nth-child(7) {
+  --gift-card-depth: 0.875;
+}
+
+.edge:nth-child(8) {
+  --gift-card-depth: 1;
+  --gift-card-edge-lit: var(--gift-card-surface-pale);
+  --gift-card-edge-shade: var(--gift-card-surface-deep);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--gift-card-radius);
+  container-type: inline-size;
+  background: radial-gradient(
+    circle at var(--gift-card-light-x) var(--gift-card-light-y),
+    var(--gift-card-surface-pale),
+    var(--gift-card-surface) 52%,
+    var(--gift-card-surface-deep) 110%
+  );
+  box-shadow:
+    inset 0 0 0 0.22cqi rgb(255 255 255 / 0.22),
+    inset 0 -0.5cqi 1cqi rgb(24 32 56 / 0.16);
+  transform: translateZ(0);
+}
+
+.print {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "lead lead"
+    "title title"
+    "mark price";
+  column-gap: 4em;
+  padding: 8em 8.5em 7.6em;
+  font-size: 1cqi;
+}
+
+.print > * {
+  margin: 0;
+}
+
+.lead,
+.title,
+.price {
+  background: var(--gift-card-metal) calc(50% + var(--gift-card-aim-x) * 45%) 50% / 320% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.1;
+}
+
+.lead {
+  grid-area: lead;
+}
+
+.lead,
+.tail {
+  font-size: 3.92cqi;
+}
+
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  color: #000;
+}
+
+.gift {
+  position: absolute;
+  top: 7.4em;
+  right: 8.5em;
+  width: 6.4em;
+  aspect-ratio: 1;
+  background: var(--gift-card-gold) calc(50% + var(--gift-card-aim-x) * 45%) 50% / 320% 100%;
+  -webkit-mask: url("./gift.svg") center / contain no-repeat;
+  mask: url("./gift.svg") center / contain no-repeat;
+}
+
+.title {
+  grid-area: title;
+  margin-top: 0.3em;
+  font-size: 6.92em;
+}
+
+.mark {
+  grid-area: mark;
+  align-self: end;
+  display: block;
+  width: 32em;
+  aspect-ratio: var(--gift-card-mark-ratio);
+  margin-bottom: 0.9em;
+  background: var(--gift-card-metal) calc(50% + var(--gift-card-aim-x) * 45%) 50% / 320% 100%;
+  -webkit-mask: var(--gift-card-mark) center / 100% 100% no-repeat;
+  mask: var(--gift-card-mark) center / 100% 100% no-repeat;
+}
+
+.price {
+  grid-area: price;
+  align-self: end;
+  font-size: 4.4em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.former {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--gift-card-metal-line);
+  text-decoration-thickness: 0.08em;
+}
+
+.light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--gift-card-light-x) var(--gift-card-light-y),
+    rgb(255 255 255 / 0.22),
+    rgb(255 255 255 / 0.066) 30%,
+    transparent 62%
+  );
+  pointer-events: none;
+}

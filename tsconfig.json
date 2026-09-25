@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "types": ["next"]
   },
-  "include": ["action-badge"]
+  "include": ["action-badge", "gift-card"]
 }
