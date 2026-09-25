@@ -4,7 +4,7 @@ A floating starburst badge for Next.js. It sits in the bottom right corner of th
 
 - On a computer (a fine pointer that can hover), the badge turns toward the cursor wherever it is on the page, and keeps following it over the badge.
 - On a phone (no fine pointer), the badge sways on its own slow cycle and ignores touches, apart from the click.
-- Under `prefers-reduced-motion: reduce`, the badge does not tilt, sway or animate in.
+- The badge moves the same way under `prefers-reduced-motion: reduce`: its motion never flashes and never morphs.
 
 The module is one folder, `action-badge/`. It has no dependency beyond Next.js and React, and it is not published to npm: a project copies the folder and imports it.
 

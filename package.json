@@ -1,6 +1,6 @@
 {
   "name": "action-badge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A floating starburst badge for Next.js, copied into a project as one folder",
   "scripts": {
