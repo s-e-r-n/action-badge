@@ -109,6 +109,27 @@
     );
 }
 
+.gilded {
+  --action-badge-gold-shift: calc(var(--action-badge-aim-x) * -53.652%);
+
+  background: linear-gradient(
+      100deg,
+      #6f5117 calc(-40.883% + var(--action-badge-gold-shift)),
+      #a07a2c calc(-11.607% + var(--action-badge-gold-shift)),
+      #e3c47a calc(6.691% + var(--action-badge-gold-shift)),
+      #8c6824 calc(32.307% + var(--action-badge-gold-shift)),
+      #c29a48 calc(61.584% + var(--action-badge-gold-shift)),
+      #f0d78f calc(72.562% + var(--action-badge-gold-shift)),
+      #7d5c1e calc(98.179% + var(--action-badge-gold-shift)),
+      #b08a3a calc(123.795% + var(--action-badge-gold-shift)),
+      #6f5117 calc(142.093% + var(--action-badge-gold-shift))
+    )
+    0 0 / 10cqi 10cqi repeat;
+  -webkit-mask: var(--action-badge-motif) 0 0 / 10cqi 10cqi repeat;
+  mask: var(--action-badge-motif) 0 0 / 10cqi 10cqi repeat;
+  opacity: 1;
+}
+
 .sheen {
   position: absolute;
   inset: 0;
@@ -159,6 +180,10 @@
   font-style: italic;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.upright {
+  font-style: normal;
 }
 
 .struck {
