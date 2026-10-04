@@ -1,6 +1,6 @@
 {
   "name": "action-badge",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Embeddable Next.js modules, a floating starburst badge and a gift card, each copied into a project as one folder",
   "scripts": {

@@ -48,8 +48,10 @@ import {
 | `lines[n].text[n].struck` | `true`, optional | Strikes the run through, such as a former price. Leave it out for a plain run. |
 | `lines[n].color` | `string` | Any CSS color for that line, such as `"#182038"`. |
 | `icon` | `StaticImageData` | The motif repeated across the foil, as an image import. Light strokes on a transparent background read best. The folder ships its own motif, `palette.svg`. |
+| `gildedIcon` | `true`, optional | Paints the motif in gold instead of showing the image: a gold gradient that shifts with the badge's turn, cut to the shape of `icon`, so only the image's opaque pixels count. Leave it out for the image as it is. |
 | `background` | `string` | Any CSS color. It is the middle tone of the foil: the badge derives a paler tone toward the light and a deeper, more saturated tone at the edges. |
 | `sectionId` | `string` | The `id` of the section a click leads to, without `#`. The badge links to `#<sectionId>`, so an element with that `id` must exist on the page. |
+| `upright` | `true`, optional | Sets every line upright instead of italic. Leave it out for italic lines. |
 
 ## Example
 
@@ -80,6 +82,27 @@ export default Page;
 ```
 
 `#b3c7f5` with the shipped `palette.svg` gives the original blue foil.
+
+A gilded badge with upright lines, as on the offer of Alain Arlettaz, takes the same parameters plus the two flags, and a motif the project provides, since the folder ships no paintbrush:
+
+```tsx
+import paintbrush from "@/assets/paintbrush-tile.svg";
+
+<ActionBadge
+  lines={[
+    { text: [{ text: "59\u00a0CHF", struck: true }], color: "#ff3b30" },
+    { text: "30\u00a0CHF", color: "#34c759" },
+    { text: "-49\u00a0%", color: "#30d158" },
+  ]}
+  icon={paintbrush}
+  gildedIcon
+  upright
+  background="#b3c7f5"
+  sectionId="offer"
+/>
+```
+
+The motif file sets its own spacing: its `viewBox` is the tile, so a margin around the drawing inside the `viewBox` spaces the repeats.
 
 ## Good to know
 
@@ -167,7 +190,7 @@ These are the values of the published card: a French copy, and the mark `filigra
 
 ## Versions
 
-The folders are released under git tags, `v1.0.0` first, and `gift-card/` from `v1.3.0`. `package.json` carries the same version. Both modules are type checked against Next.js 16 and React 19:
+The folders are released under git tags, `v1.0.0` first, and `gift-card/` from `v1.3.0`. `upright` and `gildedIcon` exist from `v1.4.0`; a badge without them renders as in `v1.3.0`. `package.json` carries the same version. Both modules are type checked against Next.js 16 and React 19:
 
 ```sh
 npm ci
